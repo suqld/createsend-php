@@ -19,7 +19,7 @@ class CS_REST_Administrators extends CS_REST_Wrapper_Base {
 
     /**
      * Constructor.
-     * @param $auth_details array Authentication details to use for API calls.
+     * @param array $auth_details array Authentication details to use for API calls.
      *        This array must take one of the following forms:
      *        If using OAuth to authenticate:
      *        array(
@@ -28,12 +28,12 @@ class CS_REST_Administrators extends CS_REST_Wrapper_Base {
      *
      *        Or if using an API key:
      *        array('api_key' => 'your api key')
-     * @param $protocol string The protocol to use for requests (http|https)
-     * @param $debug_level int The level of debugging required CS_REST_LOG_NONE | CS_REST_LOG_ERROR | CS_REST_LOG_WARNING | CS_REST_LOG_VERBOSE
-     * @param $host string The host to send API requests to. There is no need to change this
-     * @param $log CS_REST_Log The logger to use. Used for dependency injection
-     * @param $serialiser The serialiser to use. Used for dependency injection
-     * @param $transport The transport to use. Used for dependency injection
+     * @param string  $protocol The protocol to use for requests (http|https)
+     * @param integer $debug_level The level of debugging required CS_REST_LOG_NONE | CS_REST_LOG_ERROR | CS_REST_LOG_WARNING | CS_REST_LOG_VERBOSE
+     * @param string  $host The host to send API requests to. There is no need to change this
+     * @param CS_REST_Log $log The logger to use. Used for dependency injection
+     * @param CS_REST_NativeJsonSerialiser|CS_REST_ServicesJsonSerialiser $serialiser The serialiser to use. Used for dependency injection
+     * @param CS_REST_BaseTransport $transport The transport to use. Used for dependency injection
      * @access public
      */
     function __construct (
@@ -83,12 +83,12 @@ class CS_REST_Administrators extends CS_REST_Wrapper_Base {
     /**
      * Gets the details for a specific administrator
      * @access public
+     * @param string $email
      * @return CS_REST_Wrapper_Result A successful response will be an object of the form
      * {
      *     'EmailAddress' => The email address of the administrator
      *     'Name' => The name of the administrator
      *     'Status' => The status of the administrator
-     *     )
      * }
      */
     function get($email) {

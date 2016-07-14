@@ -33,8 +33,8 @@ class CS_REST_Lists extends CS_REST_Wrapper_Base {
 
     /**
      * Constructor.
-     * @param $list_id string The list id to access (Ignored for create requests)
-     * @param $auth_details array Authentication details to use for API calls.
+     * @param string $list_id The list id to access (Ignored for create requests)
+     * @param array $auth_details Authentication details to use for API calls.
      *        This array must take one of the following forms:
      *        If using OAuth to authenticate:
      *        array(
@@ -43,12 +43,12 @@ class CS_REST_Lists extends CS_REST_Wrapper_Base {
      *
      *        Or if using an API key:
      *        array('api_key' => 'your api key')
-     * @param $protocol string The protocol to use for requests (http|https)
-     * @param $debug_level int The level of debugging required CS_REST_LOG_NONE | CS_REST_LOG_ERROR | CS_REST_LOG_WARNING | CS_REST_LOG_VERBOSE
-     * @param $host string The host to send API requests to. There is no need to change this
-     * @param $log CS_REST_Log The logger to use. Used for dependency injection
-     * @param $serialiser The serialiser to use. Used for dependency injection
-     * @param $transport The transport to use. Used for dependency injection
+     * @param string $protocol The protocol to use for requests (http|https)
+     * @param integer $debug_level The level of debugging required CS_REST_LOG_NONE | CS_REST_LOG_ERROR | CS_REST_LOG_WARNING | CS_REST_LOG_VERBOSE
+     * @param string $host The host to send API requests to. There is no need to change this
+     * @param CS_REST_Log $log The logger to use. Used for dependency injection
+     * @param CS_REST_NativeJsonSerialiser|CS_REST_ServicesJsonSerialiser $serialiser The serialiser to use. Used for dependency injection
+     * @param CS_REST_BaseTransport $transport The transport to use. Used for dependency injection
      * @access public
      */
     function __construct (
@@ -67,7 +67,7 @@ class CS_REST_Lists extends CS_REST_Wrapper_Base {
 
     /**
      * Change the list id used for calls after construction
-     * @param $list_id
+     * @param string $list_id
      * @access public
      */
     function set_list_id($list_id) {
@@ -101,7 +101,6 @@ class CS_REST_Lists extends CS_REST_Wrapper_Base {
     /**
      * Updates the details of an existing list
      * Both the UnsubscribePage and the ConfirmationSuccessPage parameters are optional
-     * @param string $client_id The client to create the campaign for
      * @param array $list_details The list details to use during creation.
      *     This array should be of the form
      *     array(
@@ -209,6 +208,7 @@ class CS_REST_Lists extends CS_REST_Wrapper_Base {
     /**
      * Deletes an existing custom field from the system
      * @access public
+     * @param string $key
      * @return CS_REST_Wrapper_Result A successful response will be empty
      */
     function delete_custom_field($key) {
@@ -332,12 +332,11 @@ class CS_REST_Lists extends CS_REST_Wrapper_Base {
 
     /**
      * Gets all bounced subscribers who have bounced out since the given date
-     * @param string $added_since The date to start getting subscribers from
-     * @param int $page_number The page number to get
-     * @param int $page_size The number of records per page
-     * @param string $order_field The field to order the record set by ('EMAIL', 'NAME', 'DATE')
-     * @param string $order_direction The direction to order the record set ('ASC', 'DESC')
-     * @access public
+     * @param string  $bounced_since The date to start getting subscribers from
+     * @param integer $page_number The page number to get
+     * @param integer $page_size The number of records per page
+     * @param string  $order_field The field to order the record set by ('EMAIL', 'NAME', 'DATE')
+     * @param string  $order_direction The direction to order the record set ('ASC', 'DESC')
      * @return CS_REST_Wrapper_Result A successful response will be an object of the form
      * {
      *     'ResultsOrderedBy' => The field the results are ordered by
@@ -362,6 +361,7 @@ class CS_REST_Lists extends CS_REST_Wrapper_Base {
      *         }
      *     )
      * }
+     * @access public
      */
     function get_bounced_subscribers($bounced_since = '', $page_number = NULL, 
         $page_size = NULL, $order_field = NULL, $order_direction = NULL) {
@@ -372,12 +372,11 @@ class CS_REST_Lists extends CS_REST_Wrapper_Base {
 
     /**
      * Gets all unsubscribed subscribers who have unsubscribed since the given date
-     * @param string $added_since The date to start getting subscribers from
-     * @param int $page_number The page number to get
-     * @param int $page_size The number of records per page
-     * @param string $order_field The field to order the record set by ('EMAIL', 'NAME', 'DATE')
-     * @param string $order_direction The direction to order the record set ('ASC', 'DESC')
-     * @access public
+     * @param string  $unsubscribed_since The date to start getting subscribers from
+     * @param integer $page_number The page number to get
+     * @param integer $page_size The number of records per page
+     * @param string  $order_field The field to order the record set by ('EMAIL', 'NAME', 'DATE')
+     * @param string  $order_direction The direction to order the record set ('ASC', 'DESC')
      * @return CS_REST_Wrapper_Result A successful response will be an object of the form
      * {
      *     'ResultsOrderedBy' => The field the results are ordered by
@@ -402,6 +401,7 @@ class CS_REST_Lists extends CS_REST_Wrapper_Base {
      *         }
      *     )
      * }
+     * @access public
      */
     function get_unsubscribed_subscribers($unsubscribed_since = '', $page_number = NULL, 
         $page_size = NULL, $order_field = NULL, $order_direction = NULL) {

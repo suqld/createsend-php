@@ -18,9 +18,7 @@ class CS_REST_Transactional_Timeline extends CS_REST_Wrapper_Base {
 
     /**
      * Constructor.
-     * @param $client_id string The client id to send email on behalf of
-     *        Optional if using a client api key
-     * @param $auth_details array Authentication details to use for API calls.
+     * @param array $auth_details Authentication details to use for API calls.
      *        This array must take one of the following forms:
      *        If using OAuth to authenticate:
      *        array(
@@ -29,12 +27,14 @@ class CS_REST_Transactional_Timeline extends CS_REST_Wrapper_Base {
      *
      *        Or if using an API key:
      *        array('api_key' => 'your api key')
-     * @param $protocol string The protocol to use for requests (http|https)
-     * @param $debug_level int The level of debugging required CS_REST_LOG_NONE | CS_REST_LOG_ERROR | CS_REST_LOG_WARNING | CS_REST_LOG_VERBOSE
-     * @param $host string The host to send API requests to. There is no need to change this
-     * @param $log CS_REST_Log The logger to use. Used for dependency injection
-     * @param $serialiser The serialiser to use. Used for dependency injection
-     * @param $transport The transport to use. Used for dependency injection
+     * @param string  $client_id The client id to send email on behalf of
+     *        Optional if using a client api key
+     * @param string  $protocol The protocol to use for requests (http|https)
+     * @param integer $debug_level int The level of debugging required CS_REST_LOG_NONE | CS_REST_LOG_ERROR | CS_REST_LOG_WARNING | CS_REST_LOG_VERBOSE
+     * @param string  $host The host to send API requests to. There is no need to change this
+     * @param CS_REST_Log $log The logger to use. Used for dependency injection
+     * @param CS_REST_NativeJsonSerialiser|CS_REST_ServicesJsonSerialiser $serialiser The serialiser to use. Used for dependency injection
+     * @param CS_REST_BaseTransport $transport The transport to use. Used for dependency injection
      * @access public
      */
     function __construct (
@@ -53,7 +53,7 @@ class CS_REST_Transactional_Timeline extends CS_REST_Wrapper_Base {
     /**
      * Change the client id used for calls after construction
      * Only required if using OAuth or an Account level API Key
-     * @param $client_id
+     * @param string $client_id
      * @access public
      */
     function set_client($client_id) {
@@ -63,7 +63,7 @@ class CS_REST_Transactional_Timeline extends CS_REST_Wrapper_Base {
     /**
      * Gets the list of sent messages
      * @access public
-     * @param $params, array Parameters used to filter results
+     * @param array $query Parameters used to filter results
      *     This should be an array of the form
      *         array(
      *             "status" => string delivered|bounced|spam|all
@@ -98,7 +98,8 @@ class CS_REST_Transactional_Timeline extends CS_REST_Wrapper_Base {
     /**
      * Gets the list of details of a sent message
      * @access public
-     * @param $message_id, string Message ID to get the details for
+     * @param string  $message_id Message ID to get the details for
+     * @param boolean $show_details
      * @return CS_REST_Wrapper_Result The details of the message
      */
     function details($message_id, $show_details = false) {
@@ -109,7 +110,7 @@ class CS_REST_Transactional_Timeline extends CS_REST_Wrapper_Base {
     /**
      * Resend a sent message
      * @access public
-     * @param $message_id, string Message ID to resend
+     * @param string $message_id Message ID to resend
      * @return CS_REST_Wrapper_Result The details of the message
      *      array(
      *          "MessageID" => string
@@ -125,7 +126,7 @@ class CS_REST_Transactional_Timeline extends CS_REST_Wrapper_Base {
     /**
      * Gets statistics for sends/bounces/opens/clicks
      * @access public
-     * @param $params, array Parameters used to filter results
+     * @param array $query Parameters used to filter results
      *     This should be an array of the form
      *         array(
      *             "from" => iso-8601 date, optional, default 30 days ago

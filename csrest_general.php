@@ -13,11 +13,11 @@ class CS_REST_General extends CS_REST_Wrapper_Base {
      * Get the authorization URL for your application, given the application's
      * Client ID, Client Secret, Redirect URI, Scope, and optional state data.
      *
-     * @param $client_id int The Client ID of your registered OAuth application.
-     * @param $redirect_uri string The Redirect URI of your registered OAuth application.
-     * @param $scope string The comma-separated permission scope your application requires.
+     * @param integer $client_id The Client ID of your registered OAuth application.
+     * @param string  $redirect_uri The Redirect URI of your registered OAuth application.
+     * @param string  $scope The comma-separated permission scope your application requires.
      *        See http://www.campaignmonitor.com/api/getting-started/#authenticating_with_oauth for details.
-     * @param $state string Optional state data to be included in the URL.
+     * @param string  $state Optional state data to be included in the URL.
      * @return string The authorization URL to which users of your application should be redirected.
      * @access public
      **/
@@ -36,10 +36,10 @@ class CS_REST_General extends CS_REST_Wrapper_Base {
      * Exchange a provided OAuth code for an OAuth access token, 'expires in'
      * value and refresh token.
      *
-     * @param $client_id int The Client ID of your registered OAuth application.
-     * @param $client_secret string The Client Secret of your registered OAuth application.
-     * @param $redirect_uri string The Redirect URI of your registered OAuth application.
-     * @param $code string The unique OAuth code to be exchanged for an access token.
+     * @param integer $client_id The Client ID of your registered OAuth application.
+     * @param string  $client_secret The Client Secret of your registered OAuth application.
+     * @param string  $redirect_uri The Redirect URI of your registered OAuth application.
+     * @param string  $code The unique OAuth code to be exchanged for an access token.
      * @return CS_REST_Wrapper_Result A successful response will be an object of the form
      * {
      *     'access_token' => The access token to use for API calls
@@ -68,7 +68,7 @@ class CS_REST_General extends CS_REST_Wrapper_Base {
 
     /**
      * Constructor.
-     * @param $auth_details array Authentication details to use for API calls.
+     * @param array $auth_details Authentication details to use for API calls.
      *        This array must take one of the following forms:
      *        If using OAuth to authenticate:
      *        array(
@@ -77,12 +77,12 @@ class CS_REST_General extends CS_REST_Wrapper_Base {
      *
      *        Or if using an API key:
      *        array('api_key' => 'your api key')
-     * @param $protocol string The protocol to use for requests (http|https)
-     * @param $debug_level int The level of debugging required CS_REST_LOG_NONE | CS_REST_LOG_ERROR | CS_REST_LOG_WARNING | CS_REST_LOG_VERBOSE
-     * @param $host string The host to send API requests to. There is no need to change this
-     * @param $log CS_REST_Log The logger to use. Used for dependency injection
-     * @param $serialiser The serialiser to use. Used for dependency injection
-     * @param $transport The transport to use. Used for dependency injection
+     * @param string   $protocol The protocol to use for requests (http|https)
+     * @param integer $debug_level The level of debugging required CS_REST_LOG_NONE | CS_REST_LOG_ERROR | CS_REST_LOG_WARNING | CS_REST_LOG_VERBOSE
+     * @param string  $host The host to send API requests to. There is no need to change this
+     * @param CS_REST_Log $log The logger to use. Used for dependency injection
+     * @param CS_REST_NativeJsonSerialiser|CS_REST_ServicesJsonSerialiser $serialiser The serialiser to use. Used for dependency injection
+     * @param CS_REST_BaseTransport $transport The transport to use. Used for dependency injection
      * @access public
      */
     function CS_REST_Wrapper_Base(
@@ -182,7 +182,7 @@ class CS_REST_General extends CS_REST_Wrapper_Base {
 
     /**
      * Assigns the primary contact for this account to the administrator with the specified email address
-     * @param $emailAddress string The email address of the administrator designated to be the primary contact
+     * @param string $emailAddress The email address of the administrator designated to be the primary contact
      * @return CS_REST_Wrapper_Result a successful response will be an array in the form:
      * 		array('EmailAddress'=> email address of primary contact)
      */
@@ -194,7 +194,7 @@ class CS_REST_General extends CS_REST_Wrapper_Base {
      * Get a URL which initiates a new external session for the user with the given email.
      * Full details: http://www.campaignmonitor.com/api/account/#single_sign_on
      *
-     * @param $session_options array Options for initiating the external login session.
+     * @param array $session_options Options for initiating the external login session.
      *        This should be an array of the form:
      *        array(
      *          'Email' => 'The email address of the Campaign Monitor user for whom the login session should be created',

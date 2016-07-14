@@ -69,7 +69,7 @@ class CS_REST_Wrapper_Base {
     /**
      * The serialiser to use for serialisation and deserialisation
      * of API request and response data
-     * @var CS_REST_JsonSerialiser or CS_REST_XmlSerialiser
+     * @var CS_REST_NativeJsonSerialiser or CS_REST_ServicesJsonSerialiser
      * @access private
      */
     var $_serialiser;
@@ -106,7 +106,7 @@ class CS_REST_Wrapper_Base {
 
     /**
      * Constructor.
-     * @param $auth_details array Authentication details to use for API calls.
+     * @param array $auth_details Authentication details to use for API calls.
      *        This array must take one of the following forms:
      *        If using OAuth to authenticate:
      *        array(
@@ -119,12 +119,12 @@ class CS_REST_Wrapper_Base {
      *        Note that this method will continue to work in the deprecated
      *        case when $auth_details is passed in as a string containing an
      *        API key.
-     * @param $protocol string The protocol to use for requests (http|https)
-     * @param $debug_level int The level of debugging required CS_REST_LOG_NONE | CS_REST_LOG_ERROR | CS_REST_LOG_WARNING | CS_REST_LOG_VERBOSE
-     * @param $host string The host to send API requests to. There is no need to change this
-     * @param $log CS_REST_Log The logger to use. Used for dependency injection
-     * @param $serialiser The serialiser to use. Used for dependency injection
-     * @param $transport The transport to use. Used for dependency injection
+     * @param string $protocol The protocol to use for requests (http|https)
+     * @param integer $debug_level The level of debugging required CS_REST_LOG_NONE | CS_REST_LOG_ERROR | CS_REST_LOG_WARNING | CS_REST_LOG_VERBOSE
+     * @param string  $host The host to send API requests to. There is no need to change this
+     * @param CS_REST_Log $log The logger to use. Used for dependency injection
+     * @param CS_REST_NativeJsonSerialiser|CS_REST_ServicesJsonSerialiser $serialiser The serialiser to use. Used for dependency injection
+     * @param CS_REST_BaseTransport $transport The transport to use. Used for dependency injection
      * @access public
      */
     function __construct(
@@ -272,7 +272,11 @@ class CS_REST_Wrapper_Base {
 
     /**
      * Internal method to make a general API request based on the provided options
-     * @param $call_options
+     * @param array $call_options
+     * @param string $method
+     * @param string $route
+     * @param null|array $data
+     * @return CS_REST_Wrapper_Result
      * @access private
      */
     function _call($call_options, $method, $route, $data = NULL) {

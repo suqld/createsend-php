@@ -19,10 +19,11 @@ class CS_REST_BaseSerialiser {
     function __construct($log) {
         $this->_log = $log;
     }
-    
+
     /**
-     * Recursively ensures that all data values are utf-8 encoded. 
-     * @param array $data All values of this array are checked for utf-8 encoding. 
+     * Recursively ensures that all data values are utf-8 encoded.
+     * @param array $data All values of this array are checked for utf-8 encoding.
+     * @return array
      */
     function check_encoding($data) {
 
@@ -77,9 +78,11 @@ class CS_REST_NativeJsonSerialiser extends CS_REST_BaseSerialiser {
         return $this->strip_surrounding_quotes(is_null($data) ? $text : $data);
     }
 
-    /** 
-     * We've had sporadic reports of people getting ID's from create routes with the surrounding quotes present. 
-     * There is no case where these should be present. Just get rid of it. 
+    /**
+     * We've had sporadic reports of people getting ID's from create routes with the surrounding quotes present.
+     * There is no case where these should be present. Just get rid of it.
+     * @param string $data
+     * @return string
      */
     function strip_surrounding_quotes($data) {
         if(is_string($data)) {
